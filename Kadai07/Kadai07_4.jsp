@@ -4,6 +4,8 @@
     Author     : phuzeron
 --%>
 
+<%@page import="java.time.Period"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -17,19 +19,10 @@
 %>
 
 <%!
-   int getAge(int year, int month, int day){
-//        Calendar now = Calendar.getInstance();
-//        Calendar birthday = Calendar.getInstance();
-//        birthday.set(year, month, day);
-//        long ageMillis = now.getTimeInMillis() - birthday.getTimeInMillis();
-//        Date date = new Date(ageMillis);
-//        return Integer.parseInt(new SimpleDateFormat("y").format(date));
-        
-        Date nowDate = new Date();
-        Date birthdayDate = new Date(year-1900, month-1, day);
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        return (Integer.parseInt(sdf.format(nowDate)) - Integer.parseInt(sdf.format(birthdayDate))) / 10000;
+    int getAge(int year, int month, int day){
+        LocalDate nowDate = LocalDate.now();
+        LocalDate birthdayDate = LocalDate.of(year, month, day);
+        return Period.between(birthdayDate, nowDate).getYears();
     }
 %>
 
